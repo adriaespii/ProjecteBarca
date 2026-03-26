@@ -1,0 +1,164 @@
+:root {
+    --fcb-blue: #004D98;
+    --fcb-red: #A50044;
+    --fcb-gold: #EDBB00;
+    --bg-main: #0a0e17;
+    --bg-panel: #141b2d;
+    --bg-card: #1c253c;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+    --danger: #ef4444;
+    --pitch-green: #297a3f;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+.app-layout { display: flex; height: 100vh; width: 100vw; }
+
+.sidebar {
+    width: 300px;
+    background-color: var(--bg-panel);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    z-index: 10;
+}
+.main-content {
+    flex: 1;
+    position: relative;
+    overflow-y: auto;
+    background: radial-gradient(circle at top right, #111a33, var(--bg-main));
+}
+
+.brand { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.brand-icon {
+    font-size: 2rem;
+    background: linear-gradient(45deg, var(--fcb-blue), var(--fcb-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.brand-text h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+.brand-text .version { font-size: 0.8rem; color: var(--fcb-gold); font-weight: 600; }
+
+.finances-widget {
+    background: linear-gradient(135deg, rgba(0, 77, 152, 0.4), rgba(165, 0, 68, 0.2));
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+.finance-item { display: flex; justify-content: space-between; margin-bottom: 0.5rem; align-items: center; }
+.finance-item:last-child { margin-bottom: 0; }
+.finance-item .label { font-size: 0.85rem; color: var(--text-muted); }
+.finance-item .value { font-weight: 800; font-size: 1.1rem; }
+.budget-value { color: var(--success); }
+.expense-value { color: var(--danger); font-size: 0.95rem !important; }
+
+.menu { display: flex; flex-direction: column; gap: 0.5rem; }
+.menu-btn {
+    background: transparent; border: none; color: var(--text-muted); font-family: inherit; font-size: 1rem;
+    font-weight: 600; text-align: left; padding: 1rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease;
+    display: flex; align-items: center; gap: 1rem;
+}
+.menu-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-main); }
+.menu-btn.active { background: var(--fcb-blue); color: #fff; box-shadow: 0 4px 15px rgba(0, 77, 152, 0.4); }
+
+.btn-danger {
+    background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-family: inherit;
+}
+.btn-danger:hover { background: var(--danger); color: white; }
+.mt-auto { margin-top: auto; }
+
+.view { display: none; padding: 2.5rem; animation: fadeIn 0.3s ease; min-height: 100%; }
+.view.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+.view-header h2 { font-size: 2rem; font-weight: 800; }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+.player-card { background: var(--bg-card); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+.player-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.15); }
+
+.card-top { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.2rem; background: linear-gradient(to right, rgba(0, 77, 152, 0.2), rgba(0,0,0,0)); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.card-rating { font-size: 1.5rem; font-weight: 800; color: var(--fcb-gold); }
+.card-pos { font-size: 0.85rem; font-weight: 600; background: rgba(255,255,255,0.1); padding: 0.2rem 0.5rem; border-radius: 4px; }
+.pos-DEL { color: #f87171; } .pos-MIG { color: #60a5fa; } .pos-DEF { color: #4ade80; } .pos-POR { color: #fbbf24; }
+.card-body { padding: 1.2rem; flex: 1; }
+.card-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+.card-stats-list { font-size: 0.85rem; color: var(--text-muted); }
+.stat-line { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
+.stat-line strong { color: var(--text-main); }
+.card-action { padding: 1rem; border-top: 1px solid rgba(255,255,255,0.05); }
+.btn-action { width: 100%; padding: 0.8rem; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-family: inherit; transition: filter 0.2s; }
+.btn-action:hover { filter: brightness(1.2); }
+.btn-buy { background: var(--fcb-gold); color: #000; }
+.btn-sell { background: rgba(255,255,255,0.1); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2); }
+.btn-disabled { opacity: 0.5; cursor: not-allowed; }
+
+.lineup-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+.pitch-wrapper { background: var(--pitch-green); border-radius: 16px; padding: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5) inset; border: 4px solid rgba(255,255,255,0.2); position: relative; overflow: hidden; }
+.pitch-wrapper::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.3); }
+.pitch-wrapper::after { content: ''; position: absolute; top: 50%; left: 50%; width: 80px; height: 80px; transform: translate(-50%, -50%); border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; }
+.pitch { min-height: 550px; display: flex; flex-direction: column; justify-content: space-evenly; position: relative; z-index: 2; }
+.pitch-row { display: flex; justify-content: center; gap: 1.5rem; min-height: 80px; align-items: center; }
+
+.pitch-player { width: 60px; height: 60px; background: var(--bg-card); border: 2px solid var(--fcb-gold); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.6); transition: transform 0.2s; }
+.pitch-player:hover { transform: scale(1.1); border-color: #fff; }
+.pitch-player .rating { font-weight: 800; font-size: 1.1rem; }
+.pitch-player .name { position: absolute; bottom: -22px; background: rgba(0,0,0,0.8); font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; white-space: nowrap; font-weight: 600; }
+
+.bench-wrapper { background: var(--bg-panel); border-radius: 12px; padding: 1.5rem; }
+.bench-list { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; max-height: 500px; overflow-y: auto; }
+.bench-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 0.8rem 1rem; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+.bench-item:hover { background: rgba(255,255,255,0.1); border-color: var(--fcb-gold); }
+.bench-item.active-swap { border-color: var(--fcb-blue); background: rgba(0, 77, 152, 0.2); }
+
+.simulation-dashboard { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 900px; margin: 0 auto; }
+.match-card { background: var(--bg-panel); border-radius: 16px; padding: 2rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.teams-versus { display: flex; justify-content: center; align-items: center; gap: 2rem; margin: 2rem 0; }
+.team-logo { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--fcb-blue), var(--fcb-red)); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.team-logo.dark { background: #334155; }
+.team-rating { margin-top: 1rem; font-weight: 600; color: var(--text-muted); }
+.versus { font-size: 2rem; font-weight: 800; color: var(--fcb-gold); }
+
+.btn-play-match { background: linear-gradient(90deg, var(--fcb-blue), var(--fcb-red)); color: white; border: none; padding: 1.2rem 3rem; font-size: 1.25rem; font-weight: 800; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; font-family: inherit; }
+.btn-play-match:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(165, 0, 68, 0.4); }
+.btn-play-match:disabled { filter: grayscale(1); opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.match-log-container { background: var(--bg-panel); border-radius: 12px; padding: 1.5rem; }
+.match-log { margin-top: 1rem; background: #0f172a; border-radius: 8px; padding: 1.5rem; height: 250px; overflow-y: auto; font-family: monospace; font-size: 1rem; line-height: 1.6; }
+.log-event { margin-bottom: 0.5rem; animation: fadeIn 0.3s; }
+.log-goal { color: var(--fcb-gold); font-weight: bold; }
+.log-end { color: var(--success); font-weight: bold; font-size: 1.2rem; margin-top: 1rem;}
+
+.season-stats { display: flex; gap: 1rem; }
+.statBox { flex: 1; background: var(--bg-panel); padding: 1.5rem; border-radius: 12px; text-align: center; }
+.statBox span { display: block; font-size: 2rem; font-weight: 800; margin-top: 0.5rem;}
+.statBox.wins span { color: var(--success); }
+.statBox.draws span { color: #facc15; }
+.statBox.losses span { color: var(--danger); }
+
+.market-filters { display: flex; gap: 0.5rem; }
+.filter-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 600; }
+.filter-btn.active { background: var(--fcb-blue); color: white; border-color: var(--fcb-blue); }
+
+.validation-badge { background: var(--danger); color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+.validation-badge.valid { background: var(--success); }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+
+@media (max-width: 1024px) { .lineup-layout { grid-template-columns: 1fr; } }

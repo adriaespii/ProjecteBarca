@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de President - FC Barcelona</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-building-shield brand-icon"></i>
+                <div class="brand-text">
+                    <h1>FCB President</h1>
+                    <span class="version">v2.0 Realista</span>
+                </div>
+            </div>
+            
+            <div class="finances-widget">
+                <div class="finance-item">
+                    <span class="label">Pressupost:</span>
+                    <span class="value budget-value" id="budgetDisplay">150,000,000 €</span>
+                </div>
+                <div class="finance-item">
+                    <span class="label">Salaris (Partit):</span>
+                    <span class="value expense-value" id="salariesDisplay">-1,500,000 €</span>
+                </div>
+            </div>
+
+            <nav class="menu">
+                <button class="menu-btn active" data-target="squad">
+                    <i class="fa-solid fa-users"></i> La Meva Plantilla
+                </button>
+                <button class="menu-btn" data-target="lineup">
+                    <i class="fa-solid fa-chess-board"></i> L'Alineació
+                </button>
+                <button class="menu-btn" data-target="market">
+                    <i class="fa-solid fa-cart-shopping"></i> Mercat
+                </button>
+                <button class="menu-btn" data-target="simulation">
+                    <i class="fa-solid fa-trophy"></i> Jugar Partit
+                </button>
+            </nav>
+
+            <button id="resetBtn" class="btn-danger mt-auto">
+                <i class="fa-solid fa-power-off"></i> Nova Partida
+            </button>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- VIEW: PLANTILLA -->
+            <section id="view-squad" class="view active">
+                <header class="view-header">
+                    <h2>Plantilla Actual</h2>
+                    <div class="stats-badge">Jugadors: <span id="squadCount">0</span>/25</div>
+                </header>
+                <div class="cards-grid" id="squadGrid">
+                    <!-- Javascript content -->
+                </div>
+            </section>
+
+            <!-- VIEW: ALINEACIÓ -->
+            <section id="view-lineup" class="view">
+                <header class="view-header">
+                    <h2>Sistema Tàctic i Alineació</h2>
+                    <div class="validation-badge" id="lineupValidation">Falten jugadors</div>
+                </header>
+                <div class="lineup-layout">
+                    <!-- The Pitch -->
+                    <div class="pitch-wrapper">
+                        <div class="pitch" id="footballPitch">
+                            <div class="pitch-row attack" id="pitch-del"></div>
+                            <div class="pitch-row midfield" id="pitch-mig"></div>
+                            <div class="pitch-row defense" id="pitch-def"></div>
+                            <div class="pitch-row gk" id="pitch-por"></div>
+                        </div>
+                    </div>
+                    <!-- The Bench -->
+                    <div class="bench-wrapper">
+                        <h3>Banqueta</h3>
+                        <p class="subtitle">Fes clic per intercanviar-los amb els titulars.</p>
+                        <div class="bench-list" id="benchList">
+                            <!-- Bench players -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: MERCAT -->
+            <section id="view-market" class="view">
+                <header class="view-header">
+                    <h2>Mercat de Fitxatges</h2>
+                    <div class="market-filters">
+                        <button class="filter-btn active" data-pos="ALL">Tots</button>
+                        <button class="filter-btn" data-pos="DEL">Davanters</button>
+                        <button class="filter-btn" data-pos="MIG">Centrecampistes</button>
+                        <button class="filter-btn" data-pos="DEF">Defenses</button>
+                        <button class="filter-btn" data-pos="POR">Porters</button>
+                    </div>
+                </header>
+                <div class="cards-grid" id="marketGrid">
+                    <!-- Market players -->
+                </div>
+            </section>
+
+            <!-- VIEW: SIMULACIÓ -->
+            <section id="view-simulation" class="view">
+                <header class="view-header">
+                    <h2>Central de Partits</h2>
+                </header>
+                
+                <div class="simulation-dashboard">
+                    <div class="match-card">
+                        <div class="match-info">
+                            <h3>Proper Partit</h3>
+                            <div class="teams-versus">
+                                <div class="team fcbarcelona">
+                                    <div class="team-logo">FCB</div>
+                                    <div id="myTeamRating" class="team-rating">MIT: --</div>
+                                </div>
+                                <div class="versus">VS</div>
+                                <div class="team opponent" id="opponentTeam">
+                                    <div class="team-logo dark">RIV</div>
+                                    <div id="oppTeamRating" class="team-rating">MIT: --</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="playMatchBtn" class="btn-play-match">
+                            <i class="fa-solid fa-play"></i> Simular Partit
+                        </button>
+                    </div>
+
+                    <div class="match-log-container">
+                        <h3>Retransmissió en Directe</h3>
+                        <div id="matchLog" class="match-log">
+                            <div class="log-placeholder">Esperant l'inici del partit...</div>
+                        </div>
+                    </div>
+
+                    <div class="season-stats">
+                        <div class="statBox">
+                            <h4>Partits</h4>
+                            <span id="statMatches">0</span>
+                        </div>
+                        <div class="statBox wins">
+                            <h4>Victòries</h4>
+                            <span id="statWins">0</span>
+                        </div>
+                        <div class="statBox draws">
+                            <h4>Empats</h4>
+                            <span id="statDraws">0</span>
+                        </div>
+                        <div class="statBox losses">
+                            <h4>Derrotes</h4>
+                            <span id="statLosses">0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
